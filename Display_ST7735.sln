@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Display_ST7735", "Display_ST7735.vcxproj", "{941491B9-C3DE-4CEE-A0F4-E766A9F89AD9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Adafruit-ST7735-Library-master-1.7.3", "Libraries\Adafruit-ST7735-Library-master\1.7.3\Adafruit-ST7735-Library-master\Adafruit-ST7735-Library-master-1.7.3.vcxitems", "{BC468ABF-DD0C-4DE6-9293-1E2E53C9D780}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -31,5 +33,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5094D54C-2786-440F-A898-144D1D3E471A}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Libraries\Adafruit-ST7735-Library-master\1.7.3\Adafruit-ST7735-Library-master\Adafruit-ST7735-Library-master-1.7.3.vcxitems*{941491b9-c3de-4cee-a0f4-e766a9f89ad9}*SharedItemsImports = 4
+		Libraries\Adafruit-ST7735-Library-master\1.7.3\Adafruit-ST7735-Library-master\Adafruit-ST7735-Library-master-1.7.3.vcxitems*{bc468abf-dd0c-4de6-9293-1e2e53c9d780}*SharedItemsImports = 9
 	EndGlobalSection
 EndGlobal
