@@ -47,9 +47,8 @@ void setup() {
 	Serial.begin(9600);
 	// Use this initializer if you're using a 1.8" TFT
 	tft.initR(INITR_BLACKTAB);   // initialize a ST7735S chip, black tab
-	tft.fillScreen(ST7735_BLUE);
-
-
+	tft.fillScreen(wit);
+	tft.setRotation(3);
 }
 
 void loop() {
@@ -60,64 +59,54 @@ void loop() {
 	}
 }
 
+byte radius = 160;
 byte _H1 = 38; byte _h1 = 52; byte _H2 = 69; byte _h2 = 76;
-
-
-
+byte x; byte y;
 
 void dp_exe() {
-
-
-
-
 	if (time - timercount == 0) { //timer afgelopen
-
 	//Serial.print(dpfase);
-
 		timercount = 0; //reset timer
-
 		switch (dpfase) {
 		case 0: //zwart scherm
-
-			time = 200;
-			tft.fillScreen(zwart);
-			clear;
-			tft.setRotation(3);
+			time = 2;
+			tft.drawCircle(80, 64, radius, zwart);
+			radius--;			
 			break;
 
 		case 1:
 			time = 500;
 			tft.setTextSize(1);	
-			tft.setCursor(30, 50);
+			tft.setCursor(30, 55);
+			tft.fillRect(15, 45, 130,30, zwart);
 			tft.print("www.wisselmotor.nl");
 			break;
 
 		case 2:
-			time = 200;
-			clear;
+			time = 150;
+			tft.fillRect(15, 45, 130, 30, zwart);
 			break;
 
 		case 3:
 			time = 500;			
-			tft.setCursor(50, 50);
+			tft.setCursor(55, 55);
 			tft.println("presents:");
 			break;
 
 			// geel donkergroen geel
 		case 4: //rgba(188, 240, 66, 0.8)
-			time = 5;
-			clear;
+			time = 80;			
 			tft.fillRect(0, 0, 160, 35, geel);
 			break;
 		case 5:
-			tft.fillRect(0, 35, 160, 58, groen); // red, green,blue, helderheid
+			tft.fillRect(0, 34, 160, 62, groen); // red, green,blue, helderheid
 			break;
 		case 6:
-			tft.fillRect(0, 95, 160, 30, geel);
+			tft.fillRect(0, 95, 160, 32, geel);
 			break;
 		case 7:
 			kader();
-			time = 20;
+			//time = 20;
 			break;
 
 
@@ -133,7 +122,6 @@ void dp_exe() {
 			break;
 
 		case 12:
-			//time = 50;
 			tft.drawChar(24, _h1, 105, wit, groen, 2, 2); //105=i
 			break;
 		case 13:
@@ -184,10 +172,10 @@ void dp_exe() {
 
 			//Versie V
 		case 30:
-			time = 50;
+			time = 200;
 			break;
 		case 31:
-			time = 20;
+			time = 100;
 			tft.fillCircle(123, 35, 30, rood);
 			break;
 		case 32:
@@ -197,57 +185,64 @@ void dp_exe() {
 			tft.print("Versie");
 			break;
 		case 33:
-			time = 20;
+			time = 600;
 			tft.drawChar(110, 20, 52, geel, rood, 5);
 			break;
-			//wat is het?
-		case 40:
-			time = 100;
-			tft.fillScreen(groen);
-			kader();
 
+		case 34:
+			time = 2;
+			radius = 160;
+			dpfase++;
+			break;
+
+		case 35:
+			//Serial.println("*");
+			tft.drawLine(radius, 0, radius, 128, groen);
+			radius--;
+			kader();
+			break;
+
+		case 36:
+			time = 200;
+			break;
+
+			//wat is het
+		case 37:
+			time = 400;
 			tft.setCursor(10, 25);
 			tft.setTextSize(2);
 			tft.setTextColor(wit);
-			tft.println("Wissels \n aandrijven \n met een \n Arduino en \n Stappenmotor");
+			tft.println("Een wissel \n aandrijven \n met een \n Arduino en \n Stappenmotor");
 			break;
 
 			//eigenschappen
 
-		case 45:
-			time = 200;
-			tft.fillScreen(groen);
-			kader();
-			tft.setCursor(10, 60);
+		case 38:
+			
+			tekstkader();
+			//kader();
+			tft.setCursor(13, 60);
 			tft.println("Betrouwbaar");
 			break;
 
-		case 46:
-			tft.fillScreen(groen);
-			kader();
-			tft.setCursor(50, 60);
+		case 39:
+			tekstkader();
+			//kader();
+			tft.setCursor(54, 60);
 			tft.println("Stil");
 			break;
 
-		case 47:
-			tft.fillScreen(groen);
-			kader();
+		case 40:
+			//tft.fillScreen(groen);
+			tekstkader();
 			tft.setCursor(8, 30);
-			tft.println("Realistische\n beweging \n van de \n wisseltongen");
-			break;
-
-		case 50:
-			time = 1;
-			//	tft.fillScreen(groen);
-			//	kader();
-			//	titel(-5);
+			tft.println("Realistische\n beweging \n van de \n wisseltong");
 			break;
 
 			//functies
-		case 51:
-			time = 200;
-			tft.fillScreen(groen);
-			kader();
+		case 41:
+			//tft.fillScreen(groen);
+			tekstkader();
 			tft.setCursor(8, 10);
 			tft.setTextSize(2);
 			tft.setTextColor(wit);
@@ -255,56 +250,90 @@ void dp_exe() {
 			titel(20);
 			break;
 
-		case 52:
-			tft.fillScreen(groen);
-			kader();
+		case 42:
+			//tft.fillScreen(groen);
+			tekstkader();
 			tft.setCursor(0, 35);
 			tft.setTextSize(2);
 			tft.setTextColor(wit);
 			tft.println(" Voor analoog\n en digitaal\n modelspoor");
 			break;
-			break;
-
-
-		case 53:
-			tft.fillScreen(groen);
-			kader();
+		case 43:
+			//tft.fillScreen(groen);
+			tekstkader();
 			tft.setCursor(0, 25);
 			tft.setTextSize(2);
 			tft.setTextColor(wit);
 			tft.println(" Drukknoppen\n en\n signaal leds\n voor\n analoog");
 			break;
 
-		case 54:
-			tft.fillScreen(groen);
-			kader();
+		case 44:
+			//tft.fillScreen(groen);
+			tekstkader();
 			tft.setCursor(0, 35);
 			tft.setTextSize(2);
 			tft.setTextColor(wit);
 			tft.println(" DCC decoder\n voor\n digitaal");
 			break;
 
-		case 55:
+		case 45:
+			time = 1000;
 			logo();
 			break;
 
 
-		case 56:
-			tft.fillScreen(groen);
-			kader();
+		case 46:
+			time = 2;
+			radius = 1;
+			dpfase = 47;			
+			break;
+
+		case 47:
+			for (long i = 0; i < 100000; i++) {
+				x = random(0, 160);
+				y = random(0,128);
+
+				//Serial.print(x);
+
+				tft.drawPixel(x,y, zwart);
+			}
+			radius = 0;
+			time = 50;
+			//tft.fillScreen(zwart);
+			break;
+		case 48:
+			time = 1000;
+			//kader();
 			tft.setCursor(0, 20);
 			tft.setTextSize(2);
 			tft.setTextColor(wit);
-
 			tft.println(" Handleiding\n en info");
 			web();
 			break;
 
-		case 100:
-			time = 10000;
+		case 49:
+			time = 2;
+			radius = 1;
+			dpfase = 50;
+			break;
+
+		case 50:
+			for (long i = 0; i < 200000; i++) {
+				x = random(0, 160);
+				y = random(0, 128);
+
+				//Serial.print(x);
+
+				tft.drawPixel(x, y, wit);
+			}
+			time = 200;
+			tft.fillScreen(wit);
+			dpfase = 0;
+			radius = 160;
 			break;
 		}
-		dpfase++;
+		if (radius == 0) dpfase++;
+
 		if (dpfase > 100)dpfase = 0;
 	}
 
@@ -315,6 +344,10 @@ void dp_exe() {
 void kader() {
 	tft.drawRect(0, 0, 160, 128, rood);
 	tft.drawRect(1, 1, 158, 126, rood);
+}
+
+void tekstkader() {
+	tft.fillRect(4, 4, 152, 120, groen);
 }
 
 void logo() {
@@ -336,23 +369,23 @@ void logo() {
 void web() {
 	byte xos = 10;
 	byte y = 70;
-	tft.drawChar(xos + 0, y, 119, wit, groen, 2, 2);
+	tft.drawChar(xos + 0, y, 119, wit, zwart, 2, 2);
 	//tft.drawChar(8, 55, 119, wit, groen, 2, 2);
 	//tft.drawChar(16, 55, 119, wit, groen, 2, 2);
 	//tft.drawChar(26, 55, 119, wit, groen, 2, 2);
-	tft.drawChar(xos + 10, y, 105, wit, groen, 2, 2);
-	tft.drawChar(xos + 20, y, 115, wit, groen, 2, 2);
-	tft.drawChar(xos + 30, y, 115, wit, groen, 2, 2);
-	tft.drawChar(xos + 40, y, 101, wit, groen, 2, 2);
-	tft.drawChar(xos + 50, y, 108, wit, groen, 2, 2);
-	tft.drawChar(xos + 60, y, 109, wit, groen, 2, 2); //m=109
-	tft.drawChar(xos + 70, y, 111, wit, groen, 2, 2); //o=111
-	tft.drawChar(xos + 80, y, 116, wit, groen, 2, 2); //t=116
-	tft.drawChar(xos + 90, y, 111, wit, groen, 2, 2);//o=111
-	tft.drawChar(xos + 102, y, 114, wit, groen, 2, 2);//r=114
-	tft.drawChar(xos + 106, y, 46, wit, groen, 2, 2); //.=46
-	tft.drawChar(xos + 116, y, 110, wit, groen, 2, 2);//n=110
-	tft.drawChar(xos + 126, y, 108, wit, groen, 2, 2);//l=108
+	tft.drawChar(xos + 10, y, 105, wit, zwart, 2, 2);
+	tft.drawChar(xos + 20, y, 115, wit, zwart, 2, 2);
+	tft.drawChar(xos + 30, y, 115, wit, zwart, 2, 2);
+	tft.drawChar(xos + 40, y, 101, wit, zwart, 2, 2);
+	tft.drawChar(xos + 50, y, 108, wit, zwart, 2, 2);
+	tft.drawChar(xos + 60, y, 109, wit, zwart, 2, 2); //m=109
+	tft.drawChar(xos + 70, y, 111, wit, zwart, 2, 2); //o=111
+	tft.drawChar(xos + 80, y, 116, wit, zwart, 2, 2); //t=116
+	tft.drawChar(xos + 90, y, 111, wit, zwart, 2, 2);//o=111
+	tft.drawChar(xos + 102, y, 114, wit, zwart, 2, 2);//r=114
+	tft.drawChar(xos + 106, y, 46, wit, zwart, 2, 2); //.=46
+	tft.drawChar(xos + 116, y, 110, wit, zwart, 2, 2);//n=110
+	tft.drawChar(xos + 126, y, 108, wit, zwart, 2, 2);//l=108
 }
 
 void titel(signed int offset) {
